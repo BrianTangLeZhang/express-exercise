@@ -32,10 +32,10 @@ app.get("/books", (req, res) => {
 });
 
 app.get("/books/:id", (req, res) => {
-  const selected = books.find((b) => b.id === req.params.id);
-  const targetAuthor = authors.find((a) => a.id === selected.authorId);
-  const { name, bio } = targetAuthor;
-  res.json({ ...selected, name: name, bio: bio });
+  const book = books.find((b) => b.id === req.params.id);
+  const author = authors.find((a) => a.id === book.authorId);
+  const { name, bio } = author;
+  res.json({ ...book, name: name, bio: bio });
 });
 
 app.get("/reviews", (req, res) => {
@@ -43,10 +43,10 @@ app.get("/reviews", (req, res) => {
 });
 
 app.get("/reviews/:id", (req, res) => {
-  const selected = reviews.find((r) => r.id === req.params.id);
-  const targetBooks = books.find((b) => b.id === selected.bookId);
-  const { title } = targetBooks;
-  res.send({ ...selected, book_title: title });
+  const review = reviews.find((r) => r.id === req.params.id);
+  const book = books.find((b) => b.id === review.bookId);
+  const { title } = book;
+  res.send({ ...review, book_title: title });
 });
 
 app.get("/authors", (req, res) => {
@@ -54,8 +54,8 @@ app.get("/authors", (req, res) => {
 });
 
 app.get("/authors/:id", (req, res) => {
-  const selected = authors.find((a) => a.id === req.params.id);
-  res.send(selected);
+  const author = authors.find((a) => a.id === req.params.id);
+  res.send(author);
 });
 
 app.listen(5000, () => {
